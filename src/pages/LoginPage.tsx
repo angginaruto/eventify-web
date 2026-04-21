@@ -38,7 +38,8 @@ export default function LoginPage() {
   async function onSubmit(data: LoginForm) {
     try {
       const userData = await loginApi(data);
-      setUser(userData);
+      const token = localStorage.getItem("token");
+      setUser(userData, token);
       // kirim email notifikasi login (non-blocking)
       sendLoginNotificationEmail(userData.email);
       navigate(userData.role === "ORGANIZER" ? "/organizer" : "/");

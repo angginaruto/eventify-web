@@ -13,8 +13,9 @@ export interface AuthUser {
 
 interface AuthState {
   user: AuthUser | null;
+  token: string | null;
   isAuthenticated: boolean;
-  setUser: (user: AuthUser) => void;
+  setUser: (user: AuthUser, token?: string | null) => void;
   clearUser: () => void;
 }
 
@@ -22,9 +23,16 @@ export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
       user: null,
+      token: null,
       isAuthenticated: false,
-      setUser: (user) => set({ user, isAuthenticated: true }),
-      clearUser: () => set({ user: null, isAuthenticated: false }),
+      setUser: (user: AuthUser, token?: string | null) => {
+        if (token) localStorage.setItem("token", token); // ← TAMBAH INI
+        set({ user, token, isAuthenticated: true });
+      },
+      clearUser: () => {
+        localStorage.removeItem("token");
+        set({ user: null, token: null, isAuthenticated: false });
+      },
     }),
     {
       name: "auth-storage",
