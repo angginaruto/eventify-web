@@ -34,7 +34,6 @@
 //   return res.data.data;
 // }
 
-// src/services/auth.service.ts
 import api from "@/lib/axios";
 import type { AuthUser } from "@/store/auth.store";
 
@@ -53,7 +52,6 @@ export interface LoginPayload {
 
 export async function registerApi(payload: RegisterPayload): Promise<AuthUser> {
   const res = await api.post("/auth/register", payload);
-  // simpan token ke localStorage sebagai fallback
   if (res.data.token) {
     localStorage.setItem("token", res.data.token);
   }
@@ -62,10 +60,9 @@ export async function registerApi(payload: RegisterPayload): Promise<AuthUser> {
 
 export async function loginApi(payload: LoginPayload): Promise<AuthUser> {
   const res = await api.post("/auth/login", payload);
-  // simpan token ke localStorage sebagai fallback
-  // if (res.data.token) {
-  //   localStorage.setItem("token", res.data.token);
-  // }
+  if (res.data.token) {
+    localStorage.setItem("token", res.data.token);
+  }
   return res.data.data;
 }
 
