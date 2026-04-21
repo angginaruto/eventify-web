@@ -34,7 +34,7 @@
 //   return res.data.data;
 // }
 
-import api from "@/lib/axios";
+import api from "../lib/axios";
 import type { AuthUser } from "@/store/auth.store";
 
 export interface RegisterPayload {
