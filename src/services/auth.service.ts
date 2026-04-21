@@ -63,9 +63,9 @@ export async function registerApi(payload: RegisterPayload): Promise<AuthUser> {
 export async function loginApi(payload: LoginPayload): Promise<AuthUser> {
   const res = await api.post("/auth/login", payload);
   // simpan token ke localStorage sebagai fallback
-  if (res.data.token) {
-    localStorage.setItem("token", res.data.token);
-  }
+  // if (res.data.token) {
+  //   localStorage.setItem("token", res.data.token);
+  // }
   return res.data.data;
 }
 
