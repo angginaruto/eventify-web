@@ -23,6 +23,19 @@ export default function HomePage() {
   const debouncedSearch = useDebounce(searchInput, 300);
   const debouncedLocation = useDebounce(locationInput, 300);
 
+  useEffect(() => {
+    const urlSearch = searchParams.get("search") || "";
+    const urlLocation = searchParams.get("location") || "";
+
+    // Cek apakah URL berbeda dari current state (untuk avoid infinite loop)
+    if (urlSearch !== searchInput) {
+      setSearchInput(urlSearch);
+    }
+    if (urlLocation !== locationInput) {
+      setLocationInput(urlLocation);
+    }
+  }, [searchParams]);
+
   const page = Number(searchParams.get("page") || "1");
   const categoryId = searchParams.get("categoryId") || undefined;
   const type = (searchParams.get("type") as "free" | "paid") || undefined;
