@@ -6,10 +6,10 @@ export function useDebounce<T>(value: T, delay = 300): T {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setDebouncedValue(value);
+      setDebouncedValue(value); // update debouncedValue setelah delay tertentu
     }, delay);
 
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer); // bersihkan timer jika value atau delay berubah sebelum timeout selesai
   }, [value, delay]);
 
   return debouncedValue;

@@ -6,11 +6,11 @@ interface PaginationProps {
 }
 
 export default function Pagination({
-  page,
-  totalPages,
-  onPageChange,
+  page, // halaman saat ini
+  totalPages, // total halaman
+  onPageChange, // opsi buat pindah halaman
 }: PaginationProps) {
-  if (totalPages <= 1) return null;
+  if (totalPages <= 1) return null; // jika page 1 halaman paginasi tidak akan muncul
 
   const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
   const visible = pages.filter(

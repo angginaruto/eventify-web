@@ -20,6 +20,7 @@ import DashboardPage from "@/pages/organizer/DashboardPage";
 import MyEventsPage from "@/pages/organizer/MyEventsPage";
 import CreateEventPage from "@/pages/organizer/CreateEventPage";
 import EditEventPage from "@/pages/organizer/EditEventPage";
+import EventPromotionsPage from "@/pages/organizer/EventPromotionsPage";
 
 export const router = createBrowserRouter([
   {
@@ -70,6 +71,7 @@ export const router = createBrowserRouter([
       { path: "events/:id/edit", element: <EditEventPage /> },
       { path: "events/:id/attendees", element: <AttendeeListPage /> },
       { path: "events/:id/transactions", element: <EventTransactionsPage /> },
+      { path: "events/:id/promotions", element: <EventPromotionsPage /> },
     ],
   },
 ]);

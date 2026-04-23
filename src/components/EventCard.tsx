@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import type { Event } from "../services/event.service";
 
 function formatIDR(amount: number): string {
+  // format rupiah
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",

@@ -34,6 +34,6 @@ export async function createReviewApi(
   eventId: string,
   payload: { rating: number; comment?: string },
 ): Promise<Review> {
-  const res = await api.post(`/events/${eventId}/reviews`, payload);
-  return res.data.data;
+  const res = await api.post(`/events/${eventId}/reviews`, payload); // kirim data ke backend
+  return res.data.data; // ambil data dari backend
 }

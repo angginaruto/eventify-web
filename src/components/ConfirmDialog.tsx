@@ -12,6 +12,7 @@ interface ConfirmDialogProps {
 }
 
 export default function ConfirmDialog({
+  // components yang menerima props di atas
   isOpen,
   title,
   description,

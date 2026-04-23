@@ -8,6 +8,7 @@ import { useAuthStore } from "@/store/auth.store";
 import ReviewSection from "@/components/ReviewSection";
 
 function formatIDR(amount: number): string {
+  // format angka ke format Rupiah Indonesia
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
@@ -16,6 +17,7 @@ function formatIDR(amount: number): string {
 }
 
 export default function EventDetailPage() {
+  // halaman detail event, route: /events/:id
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuthStore();
@@ -32,6 +34,7 @@ export default function EventDetailPage() {
 
   // cek apakah customer sudah beli tiket event ini
   const { data: myTransactions } = useQuery({
+    // ambil transaksi-transaksi yang pernah dilakukan user ini
     queryKey: ["my-transactions"],
     queryFn: getMyTransactionsApi,
     enabled: isAuthenticated && user?.role === "CUSTOMER",
@@ -43,6 +46,7 @@ export default function EventDetailPage() {
     ) ?? false;
 
   function handleBuyTicket() {
+    // fungsi untuk handle klik tombol beli tiket, jika belum login arahkan ke halaman login, kalau sudah login arahkan ke halaman checkout
     if (!isAuthenticated) {
       navigate("/login");
       return;

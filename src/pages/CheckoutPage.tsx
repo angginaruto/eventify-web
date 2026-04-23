@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { format } from "date-fns";
+import { format } from "date-fns"; // format tanggal
 import { getEventByIdApi } from "@/services/event.service";
 import {
   createTransactionApi,
@@ -17,6 +17,7 @@ import { useAuthStore } from "@/store/auth.store";
 // extend window untuk Midtrans Snap
 declare global {
   interface Window {
+    // tambahkan tipe untuk Midtrans Snap
     snap: {
       pay: (
         token: string,
@@ -32,6 +33,7 @@ declare global {
 }
 
 function formatIDR(amount: number): string {
+  // format angka ke format Rupiah Indonesia
   return new Intl.NumberFormat("id-ID", {
     style: "currency",
     currency: "IDR",
@@ -58,7 +60,7 @@ export default function CheckoutPage() {
 
   const { data: event, isLoading } = useQuery({
     queryKey: ["event", id],
-    queryFn: () => getEventByIdApi(id!),
+    queryFn: () => getEventByIdApi(id!), // fetch data event berdasarkan ID dari URL
     enabled: !!id,
   });
 

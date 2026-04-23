@@ -1,5 +1,6 @@
 // src/components/EventCardSkeleton.tsx
 export default function EventCardSkeleton() {
+  // rangka event card
   return (
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden animate-pulse">
       <div className="aspect-video bg-gray-200" />

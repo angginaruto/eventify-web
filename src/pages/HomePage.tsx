@@ -10,11 +10,13 @@ import Pagination from "@/components/Pagination";
 import EmptyState from "@/components/EmptyState";
 
 export default function HomePage() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams(); // ambil data dari url
   const [searchInput, setSearchInput] = useState(
+    // nilai input search yang langsung terikat ke form input
     searchParams.get("search") || "",
   );
   const [locationInput, setLocationInput] = useState(
+    // nilai input location yang langsung terikat ke form input
     searchParams.get("location") || "",
   );
 
@@ -32,7 +34,7 @@ export default function HomePage() {
     } else {
       next.delete(key);
     }
-    next.delete("page");
+    next.delete("page"); // kalau search berubah kembali ke page 1
     setSearchParams(next);
   }
 
@@ -79,7 +81,9 @@ export default function HomePage() {
   });
 
   const { data, isLoading, isError } = useQuery({
+    // dari tanstack query untuk fetch data events
     queryKey: [
+      // refetch jika salah satu berubah
       "events",
       debouncedSearch,
       categoryId,
@@ -89,10 +93,10 @@ export default function HomePage() {
     ],
     queryFn: () =>
       getEventsApi({
-        search: debouncedSearch || undefined,
+        search: debouncedSearch || undefined, // tidak kirim "" ke api oleh karenanya undefined
         categoryId,
         type,
-        location: debouncedLocation || undefined,
+        location: debouncedLocation || undefined, // tidak kirim "" ke api oleh karenanya undefined
         page,
         limit: 9,
       }),

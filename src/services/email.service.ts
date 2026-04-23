@@ -6,6 +6,19 @@ const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const TICKET_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TICKET_TEMPLATE_ID;
 const LOGIN_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_LOGIN_TEMPLATE_ID;
 
+// ── Initialize EmailJS sekali saat app load ──────────────────
+let isInitialized = false;
+
+function initializeEmailJS() {
+  if (!isInitialized && PUBLIC_KEY) {
+    emailjs.init(PUBLIC_KEY);
+    isInitialized = true;
+    console.log("✅ EmailJS initialized");
+  } else if (!PUBLIC_KEY) {
+    console.error("❌ PUBLIC_KEY not found in environment variables");
+  }
+}
+
 // ── kirim email konfirmasi tiket ──────────────────────────────
 
 export interface TicketEmailParams {
@@ -24,15 +37,21 @@ export async function sendTicketConfirmationEmail(
   params: TicketEmailParams,
 ): Promise<void> {
   try {
-    await emailjs.send(
+    initializeEmailJS();
+
+    if (!SERVICE_ID || !TICKET_TEMPLATE_ID || !PUBLIC_KEY) {
+      throw new Error("Missing EmailJS configuration");
+    }
+
+    const response = await emailjs.send(
       SERVICE_ID,
       TICKET_TEMPLATE_ID,
       params as unknown as Record<string, unknown>,
-      PUBLIC_KEY,
     );
+
+    console.log("✅ Ticket email sent:", response.status);
   } catch (error) {
-    // jangan throw error — email gagal tidak boleh block flow transaksi
-    console.error("Failed to send ticket confirmation email:", error);
+    console.error("❌ Failed to send ticket confirmation email:", error);
   }
 }
 
@@ -42,13 +61,18 @@ export async function sendLoginNotificationEmail(
   toEmail: string,
 ): Promise<void> {
   try {
-    await emailjs.send(
-      SERVICE_ID,
-      LOGIN_TEMPLATE_ID,
-      { email: toEmail },
-      PUBLIC_KEY,
-    );
+    initializeEmailJS();
+
+    if (!SERVICE_ID || !LOGIN_TEMPLATE_ID || !PUBLIC_KEY) {
+      throw new Error("Missing EmailJS configuration");
+    }
+
+    const response = await emailjs.send(SERVICE_ID, LOGIN_TEMPLATE_ID, {
+      email: toEmail,
+    });
+
+    console.log("✅ Login email sent:", response.status);
   } catch (error) {
-    console.error("Failed to send login notification email:", error);
+    console.error("❌ Failed to send login notification email:", error);
   }
 }

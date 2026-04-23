@@ -88,6 +88,7 @@ export interface UpdateEventPayload extends Partial<CreateEventPayload> {
 }
 
 export async function getOrganizerEventsApi(query?: {
+  // ambil daftar event milik organizer yang sedang login, dengan optional query untuk pagination dan filter
   search?: string;
   status?: string;
   page?: number;
@@ -103,16 +104,19 @@ export async function getOrganizerEventsApi(query?: {
 }
 
 export async function createEventApi(payload: CreateEventPayload) {
+  // buat event baru dengan payload yang diberikan
   const res = await api.post("/events", payload);
   return res.data.data;
 }
 
 export async function updateEventApi(id: string, payload: UpdateEventPayload) {
+  // update event berdasarkan ID dengan payload yang diberikan
   const res = await api.put(`/events/${id}`, payload);
   return res.data.data;
 }
 
 export async function deleteEventApi(id: string) {
+  // hapus event berdasarkan ID
   const res = await api.delete(`/events/${id}`);
   return res.data;
 }

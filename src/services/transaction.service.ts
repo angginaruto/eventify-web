@@ -46,7 +46,7 @@ export interface CouponResponse {
   expiresAt: string;
 }
 
-export async function createTransactionApi(
+export async function createTransactionApi( // menghubungkan dengan backend
   payload: CreateTransactionPayload,
 ): Promise<Transaction> {
   const res = await api.post("/transactions", payload);

@@ -251,6 +251,12 @@ export default function MyEventsPage() {
                   >
                     Transactions
                   </Link>
+                  <Link
+                    to={`/organizer/events/${event.id}/promotions`}
+                    className="text-xs bg-amber-50 text-amber-600 border border-amber-200 px-3 py-1.5 rounded-lg hover:bg-amber-100 transition-colors"
+                  >
+                    Promotions
+                  </Link>
                   <button
                     onClick={() => setDeleteId(event.id)}
                     className="text-xs bg-red-50 text-red-500 border border-red-200 px-3 py-1.5 rounded-lg hover:bg-red-100 transition-colors"

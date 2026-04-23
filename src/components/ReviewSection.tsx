@@ -12,12 +12,13 @@ interface ReviewSectionProps {
 }
 
 function StarRating({
+  // star rating component
   value,
   onChange,
   readonly = false,
 }: {
   value: number;
-  onChange?: (v: number) => void;
+  onChange?: (v: number) => void; // function klo user klik bintang
   readonly?: boolean;
 }) {
   const [hovered, setHovered] = useState(0);
