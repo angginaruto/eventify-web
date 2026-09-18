@@ -114,7 +114,7 @@ export default function EventDetailPage() {
         </Link>
 
         {/* Image */}
-        <div className="aspect-21/9 bg-gradient-to-br from-violet-500/20 to-fuchsia-500/10 rounded-2xl overflow-hidden mb-8 border border-white/10">
+        <div className="aspect-21/9 bg-linear-to-br from-violet-500/20 to-fuchsia-500/10 rounded-2xl overflow-hidden mb-8 border border-white/10">
           {event.imageUrl ? (
             <img
               src={event.imageUrl}

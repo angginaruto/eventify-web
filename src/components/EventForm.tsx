@@ -168,7 +168,7 @@ export default function EventForm({
           <input
             {...register("startDate")}
             type="datetime-local"
-            className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white outline-none transition-colors [color-scheme:dark]
+            className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white outline-none transition-colors [color-scheme-dark]
               ${errors.startDate ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
           />
           {errors.startDate && (
@@ -184,7 +184,7 @@ export default function EventForm({
           <input
             {...register("endDate")}
             type="datetime-local"
-            className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white outline-none transition-colors [color-scheme:dark]
+            className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white outline-none transition-colors [color-scheme-dark]
               ${errors.endDate ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
           />
           {errors.endDate && (

@@ -129,7 +129,7 @@ export default function HomePage() {
       <section className="relative overflow-hidden border-b border-white/5">
         {/* ambient glow, single deliberate accent */}
         <div
-          className="pointer-events-none absolute -top-40 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full opacity-30 blur-3xl"
+          className="pointer-events-none absolute -top-40 left-1/2 h-130 w-205 -translate-x-1/2 rounded-full opacity-30 blur-3xl"
           style={{
             background:
               "radial-gradient(closest-side, #6d3cf5, transparent)",
@@ -177,7 +177,7 @@ export default function HomePage() {
 
             {/* Right: featured event visual */}
             <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl shadow-black/50">
-              <div className="aspect-[4/3]">
+              <div className="aspect-4/3">
                 <img
                   src={heroImage}
                   alt="Crowd at a live music festival under laser lights"
@@ -185,7 +185,7 @@ export default function HomePage() {
                 />
               </div>
               {/* gradient so overlay text stays legible */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/10 to-transparent" />
 
               <div className="absolute top-4 left-4 flex items-center gap-2">
                 <span className="text-xs font-medium text-violet-200 bg-violet-500/25 border border-violet-300/30 backdrop-blur px-3 py-1 rounded-full">

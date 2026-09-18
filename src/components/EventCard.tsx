@@ -23,7 +23,7 @@ export default function EventCard({ event }: EventCardProps) {
       className="group bg-[#12121e] rounded-2xl border border-white/10 overflow-hidden hover:border-violet-400/40 transition-colors"
     >
       {/* Image */}
-      <div className="aspect-video bg-gradient-to-br from-violet-500/20 to-fuchsia-500/10 overflow-hidden">
+      <div className="aspect-video bg-linear-to-br from-violet-500/20 to-fuchsia-500/10 overflow-hidden">
         {event.imageUrl ? (
           <img
             src={event.imageUrl}
