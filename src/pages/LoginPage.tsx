@@ -51,44 +51,44 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-12">
+    <div className="min-h-[calc(100vh-4rem)] bg-[#0a0a12] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">Welcome back</h1>
-          <p className="text-gray-500 mt-2 text-sm">
+          <h1 className="text-2xl font-bold text-white">Welcome back</h1>
+          <p className="text-slate-400 mt-2 text-sm">
             Sign in to your account to continue
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-8 shadow-sm">
+        <div className="bg-[#12121e] rounded-2xl border border-white/10 p-8 shadow-2xl shadow-black/40">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
             {/* Root error */}
             {errors.root && (
-              <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-lg">
+              <div className="bg-red-500/10 border border-red-400/20 text-red-400 text-sm px-4 py-3 rounded-lg">
                 {errors.root.message}
               </div>
             )}
 
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-slate-300 mb-1.5">
                 Email
               </label>
               <input
                 {...register("email")}
                 type="email"
                 placeholder="you@example.com"
-                className={`w-full px-4 py-2.5 rounded-lg border text-sm outline-none transition-colors
+                className={`w-full px-4 py-2.5 rounded-lg border text-sm text-white placeholder:text-slate-500 outline-none transition-colors
                   ${
                     errors.email
-                      ? "border-red-300 focus:border-red-400 bg-red-50"
-                      : "border-gray-300 focus:border-indigo-400 bg-white"
+                      ? "border-red-400/40 focus:border-red-400 bg-red-500/5"
+                      : "border-white/10 focus:border-violet-400/60 bg-white/5"
                   }`}
               />
               {errors.email && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-400 text-xs mt-1">
                   {errors.email.message}
                 </p>
               )}
@@ -96,22 +96,22 @@ export default function LoginPage() {
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label className="block text-sm font-medium text-slate-300 mb-1.5">
                 Password
               </label>
               <input
                 {...register("password")}
                 type="password"
                 placeholder="••••••••"
-                className={`w-full px-4 py-2.5 rounded-lg border text-sm outline-none transition-colors
+                className={`w-full px-4 py-2.5 rounded-lg border text-sm text-white placeholder:text-slate-500 outline-none transition-colors
                   ${
                     errors.password
-                      ? "border-red-300 focus:border-red-400 bg-red-50"
-                      : "border-gray-300 focus:border-indigo-400 bg-white"
+                      ? "border-red-400/40 focus:border-red-400 bg-red-500/5"
+                      : "border-white/10 focus:border-violet-400/60 bg-white/5"
                   }`}
               />
               {errors.password && (
-                <p className="text-red-500 text-xs mt-1">
+                <p className="text-red-400 text-xs mt-1">
                   {errors.password.message}
                 </p>
               )}
@@ -121,7 +121,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 
+              className="w-full bg-violet-500 hover:bg-violet-400 disabled:bg-violet-500/40 
                 text-white font-medium py-2.5 px-4 rounded-lg text-sm transition-colors
                 disabled:cursor-not-allowed"
             >
@@ -129,11 +129,11 @@ export default function LoginPage() {
             </button>
           </form>
 
-          <p className="text-center text-sm text-gray-500 mt-6">
+          <p className="text-center text-sm text-slate-500 mt-6">
             Don't have an account?{" "}
             <Link
               to="/register"
-              className="text-indigo-600 hover:underline font-medium"
+              className="text-violet-400 hover:text-violet-300 font-medium"
             >
               Register
             </Link>

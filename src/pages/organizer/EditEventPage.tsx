@@ -47,8 +47,8 @@ export default function EditEventPage() {
   if (isLoading) {
     return (
       <div className="max-w-2xl animate-pulse space-y-4">
-        <div className="h-8 bg-gray-200 rounded w-1/3" />
-        <div className="h-96 bg-gray-200 rounded-2xl" />
+        <div className="h-8 bg-white/5 rounded w-1/3" />
+        <div className="h-96 bg-white/5 rounded-2xl" />
       </div>
     );
   }
@@ -56,10 +56,10 @@ export default function EditEventPage() {
   if (!event) {
     return (
       <div className="text-center py-16">
-        <p className="text-gray-500">Event not found.</p>
+        <p className="text-slate-500">Event not found.</p>
         <Link
           to="/organizer/events"
-          className="text-indigo-600 text-sm hover:underline mt-2 block"
+          className="text-violet-400 text-sm hover:text-violet-300 mt-2 block"
         >
           ← Back to My Events
         </Link>
@@ -85,15 +85,15 @@ export default function EditEventPage() {
       <div className="mb-8">
         <Link
           to="/organizer/events"
-          className="text-sm text-gray-500 hover:text-indigo-600 flex items-center gap-1 mb-4"
+          className="text-sm text-slate-500 hover:text-violet-300 flex items-center gap-1 mb-4"
         >
           ← Back to My Events
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900">Edit Event</h1>
-        <p className="text-sm text-gray-500 mt-1 truncate">{event.title}</p>
+        <h1 className="text-2xl font-bold text-white">Edit Event</h1>
+        <p className="text-sm text-slate-500 mt-1 truncate">{event.title}</p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+      <div className="bg-[#12121e] rounded-2xl border border-white/10 p-6">
         <EventForm
           defaultValues={defaultValues}
           onSubmit={handleSubmit}

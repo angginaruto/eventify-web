@@ -51,14 +51,14 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-          <p className="text-sm text-gray-500 mt-1">
+          <h1 className="text-2xl font-bold text-white">Dashboard</h1>
+          <p className="text-sm text-slate-500 mt-1">
             Your event performance overview
           </p>
         </div>
 
         {/* Range toggle */}
-        <div className="flex bg-gray-100 rounded-xl p-1 gap-1">
+        <div className="flex bg-white/5 border border-white/10 rounded-xl p-1 gap-1">
           {rangeOptions.map((opt) => (
             <button
               key={opt.value}
@@ -66,8 +66,8 @@ export default function DashboardPage() {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors
                 ${
                   range === opt.value
-                    ? "bg-white text-gray-900 shadow-sm"
-                    : "text-gray-500 hover:text-gray-700"
+                    ? "bg-violet-500 text-white"
+                    : "text-slate-400 hover:text-slate-200"
                 }`}
             >
               {opt.label}
@@ -83,7 +83,7 @@ export default function DashboardPage() {
             label: "Total Revenue",
             value: isLoading ? "—" : formatIDR(summary?.totalRevenue ?? 0),
             icon: "💰",
-            color: "text-green-600",
+            color: "text-emerald-400",
           },
           {
             label: "Total Attendees",
@@ -91,32 +91,32 @@ export default function DashboardPage() {
               ? "—"
               : (summary?.totalAttendees ?? 0).toLocaleString(),
             icon: "👥",
-            color: "text-blue-600",
+            color: "text-sky-300",
           },
           {
             label: "Active Events",
             value: isLoading ? "—" : (summary?.publishedEvents ?? 0).toString(),
             icon: "📅",
-            color: "text-indigo-600",
+            color: "text-violet-300",
           },
           {
             label: "Completed Events",
             value: isLoading ? "—" : (summary?.completedEvents ?? 0).toString(),
             icon: "✅",
-            color: "text-purple-600",
+            color: "text-fuchsia-300",
           },
         ].map((card) => (
           <div
             key={card.label}
-            className="bg-white rounded-2xl border border-gray-200 p-5"
+            className="bg-[#12121e] rounded-2xl border border-white/10 p-5"
           >
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs text-gray-500">{card.label}</p>
+              <p className="text-xs text-slate-500">{card.label}</p>
               <span className="text-xl">{card.icon}</span>
             </div>
             <p className={`text-xl font-bold ${card.color}`}>
               {isLoading ? (
-                <span className="inline-block w-24 h-6 bg-gray-200 rounded animate-pulse" />
+                <span className="inline-block w-24 h-6 bg-white/5 rounded animate-pulse" />
               ) : (
                 card.value
               )}
@@ -126,28 +126,28 @@ export default function DashboardPage() {
       </div>
 
       {/* Revenue chart */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <h2 className="text-sm font-semibold text-gray-700 mb-5">
+      <div className="bg-[#12121e] rounded-2xl border border-white/10 p-6">
+        <h2 className="text-sm font-semibold text-slate-300 mb-5">
           Revenue Over Time
         </h2>
         {isLoading ? (
-          <div className="h-56 bg-gray-100 rounded-xl animate-pulse" />
+          <div className="h-56 bg-white/5 rounded-xl animate-pulse" />
         ) : data?.chartData && data.chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height={220}>
             <BarChart
               data={data.chartData}
               margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff1a" />
               <XAxis
                 dataKey="date"
-                tick={{ fontSize: 11, fill: "#9ca3af" }}
+                tick={{ fontSize: 11, fill: "#64748b" }}
                 axisLine={false}
                 tickLine={false}
               />
               <YAxis
                 tickFormatter={formatIDRShort}
-                tick={{ fontSize: 11, fill: "#9ca3af" }}
+                tick={{ fontSize: 11, fill: "#64748b" }}
                 axisLine={false}
                 tickLine={false}
               />
@@ -158,42 +158,46 @@ export default function DashboardPage() {
                 }}
                 contentStyle={{
                   borderRadius: "12px",
-                  border: "1px solid #e5e7eb",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  background: "#12121e",
                   fontSize: "12px",
+                  color: "#e2e8f0",
                 }}
+                labelStyle={{ color: "#e2e8f0" }}
+                itemStyle={{ color: "#e2e8f0" }}
               />
-              <Bar dataKey="revenue" fill="#6366f1" radius={[6, 6, 0, 0]} />
+              <Bar dataKey="revenue" fill="#8b5cf6" radius={[6, 6, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-56 flex items-center justify-center text-gray-400 text-sm">
+          <div className="h-56 flex items-center justify-center text-slate-500 text-sm">
             No revenue data yet
           </div>
         )}
       </div>
 
       {/* Attendees chart */}
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
-        <h2 className="text-sm font-semibold text-gray-700 mb-5">
+      <div className="bg-[#12121e] rounded-2xl border border-white/10 p-6">
+        <h2 className="text-sm font-semibold text-slate-300 mb-5">
           Attendees Over Time
         </h2>
         {isLoading ? (
-          <div className="h-56 bg-gray-100 rounded-xl animate-pulse" />
+          <div className="h-56 bg-white/5 rounded-xl animate-pulse" />
         ) : data?.chartData && data.chartData.length > 0 ? (
           <ResponsiveContainer width="100%" height={220}>
             <LineChart
               data={data.chartData}
               margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
             >
-              <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
+              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff1a" />
               <XAxis
                 dataKey="date"
-                tick={{ fontSize: 11, fill: "#9ca3af" }}
+                tick={{ fontSize: 11, fill: "#64748b" }}
                 axisLine={false}
                 tickLine={false}
               />
               <YAxis
-                tick={{ fontSize: 11, fill: "#9ca3af" }}
+                tick={{ fontSize: 11, fill: "#64748b" }}
                 axisLine={false}
                 tickLine={false}
               />
@@ -204,22 +208,26 @@ export default function DashboardPage() {
                 }}
                 contentStyle={{
                   borderRadius: "12px",
-                  border: "1px solid #e5e7eb",
+                  border: "1px solid rgba(255,255,255,0.1)",
+                  background: "#12121e",
                   fontSize: "12px",
+                  color: "#e2e8f0",
                 }}
+                labelStyle={{ color: "#e2e8f0" }}
+                itemStyle={{ color: "#e2e8f0" }}
               />
               <Line
                 type="monotone"
                 dataKey="attendees"
-                stroke="#818cf8"
+                stroke="#a78bfa"
                 strokeWidth={2.5}
-                dot={{ fill: "#6366f1", r: 4 }}
+                dot={{ fill: "#8b5cf6", r: 4 }}
                 activeDot={{ r: 6 }}
               />
             </LineChart>
           </ResponsiveContainer>
         ) : (
-          <div className="h-56 flex items-center justify-center text-gray-400 text-sm">
+          <div className="h-56 flex items-center justify-center text-slate-500 text-sm">
             No attendee data yet
           </div>
         )}
@@ -227,25 +235,25 @@ export default function DashboardPage() {
 
       {/* Top events */}
       {data?.topEvents && data.topEvents.length > 0 && (
-        <div className="bg-white rounded-2xl border border-gray-200 p-6">
-          <h2 className="text-sm font-semibold text-gray-700 mb-4">
+        <div className="bg-[#12121e] rounded-2xl border border-white/10 p-6">
+          <h2 className="text-sm font-semibold text-slate-300 mb-4">
             Top Events by Revenue
           </h2>
           <div className="space-y-3">
             {data.topEvents.map((event, idx) => (
               <div key={event.id} className="flex items-center gap-3">
-                <span className="text-sm font-bold text-gray-300 w-5 text-center">
+                <span className="text-sm font-bold text-slate-600 w-5 text-center">
                   {idx + 1}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">
+                  <p className="text-sm font-medium text-white truncate">
                     {event.title}
                   </p>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-slate-500">
                     {event.attendees} attendees
                   </p>
                 </div>
-                <p className="text-sm font-semibold text-green-600 shrink-0">
+                <p className="text-sm font-semibold text-emerald-400 shrink-0">
                   {formatIDR(event.revenue)}
                 </p>
               </div>

@@ -23,8 +23,8 @@ export default function Pagination({
       <button
         onClick={() => onPageChange(page - 1)}
         disabled={page === 1}
-        className="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600
-          hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="px-3 py-2 text-sm rounded-lg border border-white/10 text-slate-300
+          hover:bg-white/5 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
         ← Prev
       </button>
@@ -36,15 +36,15 @@ export default function Pagination({
         return (
           <span key={p} className="flex items-center gap-1">
             {showEllipsis && (
-              <span className="px-2 text-gray-400 text-sm">...</span>
+              <span className="px-2 text-slate-500 text-sm">...</span>
             )}
             <button
               onClick={() => onPageChange(p)}
               className={`w-9 h-9 text-sm rounded-lg transition-colors
                 ${
                   p === page
-                    ? "bg-indigo-600 text-white font-medium"
-                    : "border border-gray-200 text-gray-600 hover:bg-gray-50"
+                    ? "bg-violet-500 text-white font-medium"
+                    : "border border-white/10 text-slate-300 hover:bg-white/5"
                 }`}
             >
               {p}
@@ -57,8 +57,8 @@ export default function Pagination({
       <button
         onClick={() => onPageChange(page + 1)}
         disabled={page === totalPages}
-        className="px-3 py-2 text-sm rounded-lg border border-gray-200 text-gray-600
-          hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+        className="px-3 py-2 text-sm rounded-lg border border-white/10 text-slate-300
+          hover:bg-white/5 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
       >
         Next →
       </button>

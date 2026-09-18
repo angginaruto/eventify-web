@@ -35,17 +35,17 @@ export default function CreateEventPage() {
       <div className="mb-8">
         <Link
           to="/organizer/events"
-          className="text-sm text-gray-500 hover:text-indigo-600 flex items-center gap-1 mb-4"
+          className="text-sm text-slate-500 hover:text-violet-300 flex items-center gap-1 mb-4"
         >
           ← Back to My Events
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900">Create New Event</h1>
-        <p className="text-sm text-gray-500 mt-1">
+        <h1 className="text-2xl font-bold text-white">Create New Event</h1>
+        <p className="text-sm text-slate-500 mt-1">
           Fill in the details below. Event will be saved as Draft first.
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl border border-gray-200 p-6">
+      <div className="bg-[#12121e] rounded-2xl border border-white/10 p-6">
         <EventForm
           onSubmit={handleSubmit}
           isSubmitting={isSubmitting}

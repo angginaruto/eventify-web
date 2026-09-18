@@ -73,47 +73,49 @@ export default function EventForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl">
+        <div className="bg-red-500/10 border border-red-400/20 text-red-400 text-sm px-4 py-3 rounded-xl">
           {error}
         </div>
       )}
 
       {/* Title */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-slate-300 mb-1.5">
           Event Title
         </label>
         <input
           {...register("title")}
           type="text"
           placeholder="e.g. Bandung Music Festival 2025"
-          className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-            ${errors.title ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+          className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white placeholder:text-slate-500 outline-none transition-colors
+            ${errors.title ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
         />
         {errors.title && (
-          <p className="text-red-500 text-xs mt-1">{errors.title.message}</p>
+          <p className="text-red-400 text-xs mt-1">{errors.title.message}</p>
         )}
       </div>
 
       {/* Category */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-slate-300 mb-1.5">
           Category
         </label>
         <select
           {...register("categoryId")}
-          className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors bg-white
-            ${errors.categoryId ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+          className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors text-white
+            ${errors.categoryId ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-[#0f0f1a] focus:border-violet-400/60"}`}
         >
-          <option value="">Select a category</option>
+          <option value="" className="bg-[#0f0f1a]">
+            Select a category
+          </option>
           {categories?.map((cat) => (
-            <option key={cat.id} value={cat.id}>
+            <option key={cat.id} value={cat.id} className="bg-[#0f0f1a]">
               {cat.name}
             </option>
           ))}
         </select>
         {errors.categoryId && (
-          <p className="text-red-500 text-xs mt-1">
+          <p className="text-red-400 text-xs mt-1">
             {errors.categoryId.message}
           </p>
         )}
@@ -121,18 +123,18 @@ export default function EventForm({
 
       {/* Description */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-slate-300 mb-1.5">
           Description
         </label>
         <textarea
           {...register("description")}
           rows={4}
           placeholder="Describe your event..."
-          className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors resize-none
-            ${errors.description ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+          className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white placeholder:text-slate-500 outline-none transition-colors resize-none
+            ${errors.description ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
         />
         {errors.description && (
-          <p className="text-red-500 text-xs mt-1">
+          <p className="text-red-400 text-xs mt-1">
             {errors.description.message}
           </p>
         )}
@@ -140,51 +142,53 @@ export default function EventForm({
 
       {/* Location */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-slate-300 mb-1.5">
           Location
         </label>
         <input
           {...register("location")}
           type="text"
           placeholder="e.g. Jakarta Convention Center, Jakarta"
-          className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-            ${errors.location ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+          className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white placeholder:text-slate-500 outline-none transition-colors
+            ${errors.location ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
         />
         {errors.location && (
-          <p className="text-red-500 text-xs mt-1">{errors.location.message}</p>
+          <p className="text-red-400 text-xs mt-1">
+            {errors.location.message}
+          </p>
         )}
       </div>
 
       {/* Date & Time */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-slate-300 mb-1.5">
             Start Date & Time
           </label>
           <input
             {...register("startDate")}
             type="datetime-local"
-            className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-              ${errors.startDate ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+            className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white outline-none transition-colors [color-scheme:dark]
+              ${errors.startDate ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
           />
           {errors.startDate && (
-            <p className="text-red-500 text-xs mt-1">
+            <p className="text-red-400 text-xs mt-1">
               {errors.startDate.message}
             </p>
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-slate-300 mb-1.5">
             End Date & Time
           </label>
           <input
             {...register("endDate")}
             type="datetime-local"
-            className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-              ${errors.endDate ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+            className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white outline-none transition-colors [color-scheme:dark]
+              ${errors.endDate ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
           />
           {errors.endDate && (
-            <p className="text-red-500 text-xs mt-1">
+            <p className="text-red-400 text-xs mt-1">
               {errors.endDate.message}
             </p>
           )}
@@ -194,29 +198,33 @@ export default function EventForm({
       {/* Price & Seats */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-slate-300 mb-1.5">
             Ticket Price (IDR)
-            <span className="text-gray-400 font-normal ml-1">(0 = Free)</span>
+            <span className="text-slate-500 font-normal ml-1">
+              (0 = Free)
+            </span>
           </label>
           <input
             {...register("price")}
             type="number"
             min={0}
             placeholder="0"
-            className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-              ${errors.price ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+            className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white placeholder:text-slate-500 outline-none transition-colors
+              ${errors.price ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
           />
           {isFree && (
-            <p className="text-green-600 text-xs mt-1">
+            <p className="text-emerald-400 text-xs mt-1">
               ✓ This will be a free event
             </p>
           )}
           {errors.price && (
-            <p className="text-red-500 text-xs mt-1">{errors.price.message}</p>
+            <p className="text-red-400 text-xs mt-1">
+              {errors.price.message}
+            </p>
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label className="block text-sm font-medium text-slate-300 mb-1.5">
             Available Seats
           </label>
           <input
@@ -224,11 +232,11 @@ export default function EventForm({
             type="number"
             min={1}
             placeholder="100"
-            className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-              ${errors.availableSeats ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+            className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white placeholder:text-slate-500 outline-none transition-colors
+              ${errors.availableSeats ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
           />
           {errors.availableSeats && (
-            <p className="text-red-500 text-xs mt-1">
+            <p className="text-red-400 text-xs mt-1">
               {errors.availableSeats.message}
             </p>
           )}
@@ -237,19 +245,21 @@ export default function EventForm({
 
       {/* Image URL */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className="block text-sm font-medium text-slate-300 mb-1.5">
           Image URL{" "}
-          <span className="text-gray-400 font-normal">(optional)</span>
+          <span className="text-slate-500 font-normal">(optional)</span>
         </label>
         <input
           {...register("imageUrl")}
           type="url"
           placeholder="https://example.com/image.jpg"
-          className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-            ${errors.imageUrl ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+          className={`w-full px-4 py-2.5 rounded-xl border text-sm text-white placeholder:text-slate-500 outline-none transition-colors
+            ${errors.imageUrl ? "border-red-400/40 bg-red-500/5" : "border-white/10 bg-white/5 focus:border-violet-400/60"}`}
         />
         {errors.imageUrl && (
-          <p className="text-red-500 text-xs mt-1">{errors.imageUrl.message}</p>
+          <p className="text-red-400 text-xs mt-1">
+            {errors.imageUrl.message}
+          </p>
         )}
       </div>
 
@@ -257,7 +267,7 @@ export default function EventForm({
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full py-3 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400
+        className="w-full py-3 bg-violet-500 hover:bg-violet-400 disabled:bg-violet-500/40
           text-white font-medium rounded-xl text-sm transition-colors disabled:cursor-not-allowed"
       >
         {isSubmitting ? "Saving..." : submitLabel}

@@ -138,364 +138,366 @@ export default function EventPromotionsPage() {
   const referralPromos = promotions?.filter((p) => p.type === "REFERRAL") ?? [];
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <Link
-          to="/organizer/events"
-          className="text-sm text-gray-500 hover:text-indigo-600 flex items-center gap-1 mb-4"
-        >
-          ← Back to My Events
-        </Link>
-        <h1 className="text-2xl font-bold text-gray-900">Promotions</h1>
-        {event && (
-          <p className="text-sm text-gray-500 mt-1 truncate">{event.title}</p>
-        )}
-      </div>
-
-      {/* Guard — hanya event PUBLISHED yang bisa buat promosi */}
-      {event && event.status !== "PUBLISHED" && (
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-start gap-3">
-          <span className="text-2xl">⚠️</span>
-          <div>
-            <p className="text-sm font-semibold text-amber-800">
-              Promotions are only available for published events
-            </p>
-            <p className="text-xs text-amber-600 mt-1">
-              This event is currently <strong>{event.status}</strong>.
-              {event.status === "DRAFT" &&
-                " Publish the event first to create promotions."}
-            </p>
-            {event.status === "DRAFT" && (
-              <Link
-                to="/organizer/events"
-                className="text-xs text-indigo-600 hover:underline mt-2 inline-block"
-              >
-                Go to My Events to publish →
-              </Link>
-            )}
-          </div>
+    <div className="min-h-screen bg-[#0a0a12] px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto space-y-6">
+        {/* Header */}
+        <div>
+          <Link
+            to="/organizer/events"
+            className="text-sm text-slate-500 hover:text-violet-400 flex items-center gap-1 mb-4"
+          >
+            ← Back to My Events
+          </Link>
+          <h1 className="text-2xl font-semibold text-white">Promotions</h1>
+          {event && (
+            <p className="text-sm text-slate-500 mt-1 truncate">{event.title}</p>
+          )}
         </div>
-      )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Form buat promosi — hanya tampil kalau PUBLISHED */}
-        {event?.status === "PUBLISHED" && (
-          <div className="bg-white rounded-2xl border border-gray-200 p-6">
-            <h2 className="text-sm font-semibold text-gray-900 mb-4">
-              Create Promotion
-            </h2>
-
-            {/* Type toggle */}
-            <div className="flex gap-1 bg-gray-100 rounded-xl p-1 mb-5">
-              <button
-                onClick={() => {
-                  setActiveType("DATE_BASED");
-                  setFormError("");
-                }}
-                className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors
-                ${
-                  activeType === "DATE_BASED"
-                    ? "bg-white text-gray-900 shadow-sm"
-                    : "text-gray-500 hover:text-gray-700"
-                }`}
-              >
-                📅 Date-based
-              </button>
-              <button
-                onClick={() => {
-                  setActiveType("REFERRAL");
-                  setFormError("");
-                }}
-                className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors
-                ${
-                  activeType === "REFERRAL"
-                    ? "bg-white text-gray-900 shadow-sm"
-                    : "text-gray-500 hover:text-gray-700"
-                }`}
-              >
-                🎟️ Voucher
-              </button>
-            </div>
-
-            {formError && (
-              <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-4">
-                {formError}
-              </div>
-            )}
-
-            {/* Date-based form */}
-            {activeType === "DATE_BASED" && (
-              <form
-                onSubmit={dateForm.handleSubmit(handleDateBasedSubmit)}
-                className="space-y-4"
-              >
-                <p className="text-xs text-gray-500 bg-amber-50 border border-amber-100 rounded-lg px-3 py-2">
-                  Diskon otomatis untuk semua pembeli dalam rentang tanggal ini.
-                </p>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                    Discount Amount (IDR)
-                  </label>
-                  <input
-                    {...dateForm.register("discountValue")}
-                    type="number"
-                    placeholder="e.g. 50000"
-                    className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-                    ${dateForm.formState.errors.discountValue ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
-                  />
-                  {dateForm.formState.errors.discountValue && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {dateForm.formState.errors.discountValue.message}
-                    </p>
-                  )}
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Start Date
-                    </label>
-                    <input
-                      {...dateForm.register("startDate")}
-                      type="date"
-                      className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-                      ${dateForm.formState.errors.startDate ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
-                    />
-                    {dateForm.formState.errors.startDate && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {dateForm.formState.errors.startDate.message}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      End Date
-                    </label>
-                    <input
-                      {...dateForm.register("endDate")}
-                      type="date"
-                      className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-                      ${dateForm.formState.errors.endDate ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
-                    />
-                    {dateForm.formState.errors.endDate && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {dateForm.formState.errors.endDate.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-                <button
-                  type="submit"
-                  disabled={createMutation.isPending}
-                  className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white text-sm font-medium rounded-xl transition-colors"
+        {/* Guard — hanya event PUBLISHED yang bisa buat promosi */}
+        {event && event.status !== "PUBLISHED" && (
+          <div className="bg-amber-500/10 border border-amber-400/20 rounded-2xl p-5 flex items-start gap-3">
+            <span className="text-2xl">⚠️</span>
+            <div>
+              <p className="text-sm font-semibold text-amber-300">
+                Promotions are only available for published events
+              </p>
+              <p className="text-xs text-amber-400/80 mt-1">
+                This event is currently <strong>{event.status}</strong>.
+                {event.status === "DRAFT" &&
+                  " Publish the event first to create promotions."}
+              </p>
+              {event.status === "DRAFT" && (
+                <Link
+                  to="/organizer/events"
+                  className="text-xs text-violet-400 hover:text-violet-300 hover:underline mt-2 inline-block"
                 >
-                  {createMutation.isPending
-                    ? "Creating..."
-                    : "Create Date-based Discount"}
-                </button>
-              </form>
-            )}
+                  Go to My Events to publish →
+                </Link>
+              )}
+            </div>
+          </div>
+        )}
 
-            {/* Referral voucher form */}
-            {activeType === "REFERRAL" && (
-              <form
-                onSubmit={referralForm.handleSubmit(handleReferralSubmit)}
-                className="space-y-4"
-              >
-                <p className="text-xs text-gray-500 bg-indigo-50 border border-indigo-100 rounded-lg px-3 py-2">
-                  Kode voucher dengan quota terbatas. Pembeli input kode ini
-                  saat checkout.
-                </p>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                    Voucher Code
-                  </label>
-                  <input
-                    {...referralForm.register("code")}
-                    type="text"
-                    placeholder="e.g. EARLYBIRD50K"
-                    className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors uppercase
-                    ${referralForm.formState.errors.code ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
-                    onChange={(e) =>
-                      referralForm.setValue(
-                        "code",
-                        e.target.value.toUpperCase(),
-                      )
-                    }
-                  />
-                  {referralForm.formState.errors.code && (
-                    <p className="text-red-500 text-xs mt-1">
-                      {referralForm.formState.errors.code.message}
-                    </p>
-                  )}
-                  <p className="text-xs text-gray-400 mt-1">
-                    Uppercase letters and numbers only
-                  </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Form buat promosi — hanya tampil kalau PUBLISHED */}
+          {event?.status === "PUBLISHED" && (
+            <div className="bg-[#12121e] rounded-2xl border border-white/10 p-6">
+              <h2 className="text-sm font-semibold text-white mb-4">
+                Create Promotion
+              </h2>
+
+              {/* Type toggle */}
+              <div className="flex gap-1 bg-white/5 rounded-xl p-1 mb-5">
+                <button
+                  onClick={() => {
+                    setActiveType("DATE_BASED");
+                    setFormError("");
+                  }}
+                  className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors
+                  ${
+                    activeType === "DATE_BASED"
+                      ? "bg-violet-500/15 text-violet-300"
+                      : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  📅 Date-based
+                </button>
+                <button
+                  onClick={() => {
+                    setActiveType("REFERRAL");
+                    setFormError("");
+                  }}
+                  className={`flex-1 py-2 text-sm font-medium rounded-lg transition-colors
+                  ${
+                    activeType === "REFERRAL"
+                      ? "bg-violet-500/15 text-violet-300"
+                      : "text-slate-400 hover:text-slate-200"
+                  }`}
+                >
+                  🎟️ Voucher
+                </button>
+              </div>
+
+              {formError && (
+                <div className="bg-red-500/10 border border-red-400/20 text-red-400 text-sm px-4 py-3 rounded-xl mb-4">
+                  {formError}
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+              )}
+
+              {/* Date-based form */}
+              {activeType === "DATE_BASED" && (
+                <form
+                  onSubmit={dateForm.handleSubmit(handleDateBasedSubmit)}
+                  className="space-y-4"
+                >
+                  <p className="text-xs text-slate-400 bg-amber-500/10 border border-amber-400/20 rounded-lg px-3 py-2">
+                    Diskon otomatis untuk semua pembeli dalam rentang tanggal ini.
+                  </p>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                    <label className="block text-sm font-medium text-slate-300 mb-1.5">
                       Discount Amount (IDR)
                     </label>
                     <input
-                      {...referralForm.register("discountValue")}
+                      {...dateForm.register("discountValue")}
                       type="number"
-                      placeholder="e.g. 25000"
-                      className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-                      ${referralForm.formState.errors.discountValue ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+                      placeholder="e.g. 50000"
+                      className={`w-full px-4 py-2.5 rounded-xl border bg-white/5 text-sm text-white placeholder:text-slate-500 outline-none transition-colors
+                      ${dateForm.formState.errors.discountValue ? "border-red-400/40 bg-red-500/5" : "border-white/10 focus:border-violet-400/60"}`}
                     />
-                    {referralForm.formState.errors.discountValue && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {referralForm.formState.errors.discountValue.message}
+                    {dateForm.formState.errors.discountValue && (
+                      <p className="text-red-400 text-xs mt-1">
+                        {dateForm.formState.errors.discountValue.message}
                       </p>
                     )}
                   </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                        Start Date
+                      </label>
+                      <input
+                        {...dateForm.register("startDate")}
+                        type="date"
+                        className={`w-full px-4 py-2.5 rounded-xl border bg-white/5 text-sm text-white outline-none transition-colors
+                        ${dateForm.formState.errors.startDate ? "border-red-400/40 bg-red-500/5" : "border-white/10 focus:border-violet-400/60"}`}
+                      />
+                      {dateForm.formState.errors.startDate && (
+                        <p className="text-red-400 text-xs mt-1">
+                          {dateForm.formState.errors.startDate.message}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                        End Date
+                      </label>
+                      <input
+                        {...dateForm.register("endDate")}
+                        type="date"
+                        className={`w-full px-4 py-2.5 rounded-xl border bg-white/5 text-sm text-white outline-none transition-colors
+                        ${dateForm.formState.errors.endDate ? "border-red-400/40 bg-red-500/5" : "border-white/10 focus:border-violet-400/60"}`}
+                      />
+                      {dateForm.formState.errors.endDate && (
+                        <p className="text-red-400 text-xs mt-1">
+                          {dateForm.formState.errors.endDate.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={createMutation.isPending}
+                    className="w-full py-2.5 bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 disabled:text-slate-400 text-white text-sm font-medium rounded-xl transition-colors"
+                  >
+                    {createMutation.isPending
+                      ? "Creating..."
+                      : "Create Date-based Discount"}
+                  </button>
+                </form>
+              )}
+
+              {/* Referral voucher form */}
+              {activeType === "REFERRAL" && (
+                <form
+                  onSubmit={referralForm.handleSubmit(handleReferralSubmit)}
+                  className="space-y-4"
+                >
+                  <p className="text-xs text-slate-400 bg-violet-500/10 border border-violet-400/20 rounded-lg px-3 py-2">
+                    Kode voucher dengan quota terbatas. Pembeli input kode ini
+                    saat checkout.
+                  </p>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1.5">
-                      Quota
+                    <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                      Voucher Code
                     </label>
                     <input
-                      {...referralForm.register("quota")}
-                      type="number"
-                      placeholder="e.g. 50"
-                      className={`w-full px-4 py-2.5 rounded-xl border text-sm outline-none transition-colors
-                      ${referralForm.formState.errors.quota ? "border-red-300 bg-red-50" : "border-gray-200 focus:border-indigo-400"}`}
+                      {...referralForm.register("code")}
+                      type="text"
+                      placeholder="e.g. EARLYBIRD50K"
+                      className={`w-full px-4 py-2.5 rounded-xl border bg-white/5 text-sm text-white placeholder:text-slate-500 outline-none transition-colors uppercase
+                      ${referralForm.formState.errors.code ? "border-red-400/40 bg-red-500/5" : "border-white/10 focus:border-violet-400/60"}`}
+                      onChange={(e) =>
+                        referralForm.setValue(
+                          "code",
+                          e.target.value.toUpperCase(),
+                        )
+                      }
                     />
-                    {referralForm.formState.errors.quota && (
-                      <p className="text-red-500 text-xs mt-1">
-                        {referralForm.formState.errors.quota.message}
+                    {referralForm.formState.errors.code && (
+                      <p className="text-red-400 text-xs mt-1">
+                        {referralForm.formState.errors.code.message}
                       </p>
                     )}
+                    <p className="text-xs text-slate-500 mt-1">
+                      Uppercase letters and numbers only
+                    </p>
                   </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                        Discount Amount (IDR)
+                      </label>
+                      <input
+                        {...referralForm.register("discountValue")}
+                        type="number"
+                        placeholder="e.g. 25000"
+                        className={`w-full px-4 py-2.5 rounded-xl border bg-white/5 text-sm text-white placeholder:text-slate-500 outline-none transition-colors
+                        ${referralForm.formState.errors.discountValue ? "border-red-400/40 bg-red-500/5" : "border-white/10 focus:border-violet-400/60"}`}
+                      />
+                      {referralForm.formState.errors.discountValue && (
+                        <p className="text-red-400 text-xs mt-1">
+                          {referralForm.formState.errors.discountValue.message}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-slate-300 mb-1.5">
+                        Quota
+                      </label>
+                      <input
+                        {...referralForm.register("quota")}
+                        type="number"
+                        placeholder="e.g. 50"
+                        className={`w-full px-4 py-2.5 rounded-xl border bg-white/5 text-sm text-white placeholder:text-slate-500 outline-none transition-colors
+                        ${referralForm.formState.errors.quota ? "border-red-400/40 bg-red-500/5" : "border-white/10 focus:border-violet-400/60"}`}
+                      />
+                      {referralForm.formState.errors.quota && (
+                        <p className="text-red-400 text-xs mt-1">
+                          {referralForm.formState.errors.quota.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={createMutation.isPending}
+                    className="w-full py-2.5 bg-violet-600 hover:bg-violet-500 disabled:bg-violet-800 disabled:text-slate-400 text-white text-sm font-medium rounded-xl transition-colors"
+                  >
+                    {createMutation.isPending ? "Creating..." : "Create Voucher"}
+                  </button>
+                </form>
+              )}
+            </div>
+          )}{" "}
+          {/* end event?.status === "PUBLISHED" */}
+          {/* List promosi aktif */}
+          <div className="space-y-4">
+            {/* Date-based promos */}
+            <div className="bg-[#12121e] rounded-2xl border border-white/10 p-5">
+              <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                📅 Date-based Discounts
+                <span className="text-xs font-normal text-slate-500">
+                  ({dateBasedPromos.length})
+                </span>
+              </h3>
+              {isLoading ? (
+                <div className="space-y-2">
+                  {[1, 2].map((i) => (
+                    <div
+                      key={i}
+                      className="h-16 bg-white/5 rounded-xl animate-pulse"
+                    />
+                  ))}
                 </div>
-                <button
-                  type="submit"
-                  disabled={createMutation.isPending}
-                  className="w-full py-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:bg-indigo-400 text-white text-sm font-medium rounded-xl transition-colors"
-                >
-                  {createMutation.isPending ? "Creating..." : "Create Voucher"}
-                </button>
-              </form>
-            )}
-          </div>
-        )}{" "}
-        {/* end event?.status === "PUBLISHED" */}
-        {/* List promosi aktif */}
-        <div className="space-y-4">
-          {/* Date-based promos */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-5">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-              📅 Date-based Discounts
-              <span className="text-xs font-normal text-gray-400">
-                ({dateBasedPromos.length})
-              </span>
-            </h3>
-            {isLoading ? (
-              <div className="space-y-2">
-                {[1, 2].map((i) => (
-                  <div
-                    key={i}
-                    className="h-16 bg-gray-100 rounded-xl animate-pulse"
-                  />
-                ))}
-              </div>
-            ) : dateBasedPromos.length === 0 ? (
-              <p className="text-sm text-gray-400 text-center py-4">
-                No date-based discounts yet
-              </p>
-            ) : (
-              <div className="space-y-2">
-                {dateBasedPromos.map((promo) => (
-                  <div
-                    key={promo.id}
-                    className="flex items-center justify-between bg-amber-50 border border-amber-100 rounded-xl px-4 py-3"
-                  >
-                    <div>
-                      <p className="text-sm font-semibold text-amber-700">
-                        − {formatIDR(promo.discountValue)}
-                      </p>
-                      <p className="text-xs text-amber-600">
-                        {format(new Date(promo.startDate!), "dd MMM yyyy")} —{" "}
-                        {format(new Date(promo.endDate!), "dd MMM yyyy")}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setDeleteId(promo.id)}
-                      className="text-xs text-red-500 hover:text-red-700 border border-red-200 px-2 py-1 rounded-lg hover:bg-red-50"
+              ) : dateBasedPromos.length === 0 ? (
+                <p className="text-sm text-slate-500 text-center py-4">
+                  No date-based discounts yet
+                </p>
+              ) : (
+                <div className="space-y-2">
+                  {dateBasedPromos.map((promo) => (
+                    <div
+                      key={promo.id}
+                      className="flex items-center justify-between bg-amber-500/10 border border-amber-400/20 rounded-xl px-4 py-3"
                     >
-                      Delete
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+                      <div>
+                        <p className="text-sm font-semibold text-amber-300">
+                          − {formatIDR(promo.discountValue)}
+                        </p>
+                        <p className="text-xs text-amber-400/80">
+                          {format(new Date(promo.startDate!), "dd MMM yyyy")} —{" "}
+                          {format(new Date(promo.endDate!), "dd MMM yyyy")}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setDeleteId(promo.id)}
+                        className="text-xs text-red-400 hover:text-red-300 border border-red-400/20 px-2 py-1 rounded-lg hover:bg-red-500/10"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          {/* Referral vouchers */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-5">
-            <h3 className="text-sm font-semibold text-gray-700 mb-3 flex items-center gap-2">
-              🎟️ Vouchers
-              <span className="text-xs font-normal text-gray-400">
-                ({referralPromos.length})
-              </span>
-            </h3>
-            {isLoading ? (
-              <div className="space-y-2">
-                {[1, 2].map((i) => (
-                  <div
-                    key={i}
-                    className="h-16 bg-gray-100 rounded-xl animate-pulse"
-                  />
-                ))}
-              </div>
-            ) : referralPromos.length === 0 ? (
-              <p className="text-sm text-gray-400 text-center py-4">
-                No vouchers yet
-              </p>
-            ) : (
-              <div className="space-y-2">
-                {referralPromos.map((promo) => (
-                  <div
-                    key={promo.id}
-                    className="flex items-center justify-between bg-indigo-50 border border-indigo-100 rounded-xl px-4 py-3"
-                  >
-                    <div>
-                      <p className="text-sm font-bold text-indigo-700 tracking-widest">
-                        {promo.code}
-                      </p>
-                      <p className="text-xs text-indigo-600">
-                        − {formatIDR(promo.discountValue)}
-                      </p>
-                      <p className="text-xs text-indigo-400">
-                        {promo.usedCount}/{promo.quota} used
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => setDeleteId(promo.id)}
-                      disabled={promo.usedCount > 0}
-                      className="text-xs text-red-500 hover:text-red-700 border border-red-200 px-2 py-1 rounded-lg hover:bg-red-50 disabled:opacity-40 disabled:cursor-not-allowed"
+            {/* Referral vouchers */}
+            <div className="bg-[#12121e] rounded-2xl border border-white/10 p-5">
+              <h3 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
+                🎟️ Vouchers
+                <span className="text-xs font-normal text-slate-500">
+                  ({referralPromos.length})
+                </span>
+              </h3>
+              {isLoading ? (
+                <div className="space-y-2">
+                  {[1, 2].map((i) => (
+                    <div
+                      key={i}
+                      className="h-16 bg-white/5 rounded-xl animate-pulse"
+                    />
+                  ))}
+                </div>
+              ) : referralPromos.length === 0 ? (
+                <p className="text-sm text-slate-500 text-center py-4">
+                  No vouchers yet
+                </p>
+              ) : (
+                <div className="space-y-2">
+                  {referralPromos.map((promo) => (
+                    <div
+                      key={promo.id}
+                      className="flex items-center justify-between bg-violet-500/10 border border-violet-400/20 rounded-xl px-4 py-3"
                     >
-                      Delete
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
+                      <div>
+                        <p className="text-sm font-bold text-violet-300 tracking-widest">
+                          {promo.code}
+                        </p>
+                        <p className="text-xs text-violet-300/80">
+                          − {formatIDR(promo.discountValue)}
+                        </p>
+                        <p className="text-xs text-violet-400/60">
+                          {promo.usedCount}/{promo.quota} used
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => setDeleteId(promo.id)}
+                        disabled={promo.usedCount > 0}
+                        className="text-xs text-red-400 hover:text-red-300 border border-red-400/20 px-2 py-1 rounded-lg hover:bg-red-500/10 disabled:opacity-40 disabled:cursor-not-allowed"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Delete confirm */}
-      <ConfirmDialog
-        isOpen={!!deleteId}
-        title="Delete Promotion"
-        description="Are you sure you want to delete this promotion?"
-        confirmLabel="Delete"
-        variant="danger"
-        onConfirm={() => deleteId && deleteMutation.mutate(deleteId)}
-        onCancel={() => setDeleteId(null)}
-        isLoading={deleteMutation.isPending}
-      />
+        {/* Delete confirm */}
+        <ConfirmDialog
+          isOpen={!!deleteId}
+          title="Delete Promotion"
+          description="Are you sure you want to delete this promotion?"
+          confirmLabel="Delete"
+          variant="danger"
+          onConfirm={() => deleteId && deleteMutation.mutate(deleteId)}
+          onCancel={() => setDeleteId(null)}
+          isLoading={deleteMutation.isPending}
+        />
+      </div>
     </div>
   );
 }
